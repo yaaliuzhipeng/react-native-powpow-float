@@ -1,5 +1,5 @@
 {
-  "name": "@powpow/float",
+  "name": "@tornador/float",
   "version": "1.0.0",
   "description": "amazing modal resolution",
   "main": "index.ts",
@@ -22,6 +22,9 @@
     "modal",
     "overlay"
   ],
+  "publishConfig": {
+
+  },
   "author": "yaaliuzhipeng",
   "license": "MIT",
   "bugs": {
