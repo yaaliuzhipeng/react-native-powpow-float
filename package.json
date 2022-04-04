@@ -13,12 +13,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yaaliuzhipeng/react-native-powpow-float.git"
+    "url": "git+https://github.com/yaaliuzhipeng/react-native-tornador-float.git"
   },
   "keywords": [
     "react-native",
     "rn",
-    "powpow",
+    "tornador",
     "modal",
     "overlay"
   ],
@@ -28,9 +28,9 @@
   "author": "yaaliuzhipeng",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/yaaliuzhipeng/react-native-powpow-float/issues"
+    "url": "https://github.com/yaaliuzhipeng/react-native-tornador-float/issues"
   },
-  "homepage": "https://github.com/yaaliuzhipeng/react-native-powpow-float#readme",
+  "homepage": "https://github.com/yaaliuzhipeng/react-native-tornador-float#readme",
   "devDependencies": {
     "react": ">=16.9.0",
     "react-native": ">=0.67.0",
