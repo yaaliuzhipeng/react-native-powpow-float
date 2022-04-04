@@ -130,11 +130,23 @@ const FloatCentral = (props) => {
             add(float)
         }
     }
+    function __makeToast(config: { text: string; position?: 'top' | 'center' | 'bottom'; duration?: 'short' | 'long' }) {
+        global.makeFloat({
+            key: PowpowFloat.uuid(),
+            component: FloatToast,
+            payload: {
+                data: {
+                    text: config.text,
+                    position: config.position,
+                    duration: config.duration,
+                },
+            },
+            queue: 'TOAST',
+        });
+    }
     useEffect(() => {
         global.makeFloat = __makeFloat;
-        global.desManager = () => {
-            di(manager.depends, manager.status)
-        }
+        global.makeToast = __makeToast;
     }, [])
 
     return (
@@ -145,7 +157,7 @@ const FloatCentral = (props) => {
                     <Component
                         key={key}
                         {...payload}
-                        removeSelf={() => {remove(key)}}
+                        removeSelf={() => { remove(key) }}
                     />
                 )
             })}

@@ -1,6 +1,6 @@
 {
   "name": "@tornador/float",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "amazing modal resolution",
   "main": "index.ts",
   "files": [
