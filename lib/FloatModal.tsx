@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { StyleSheet } from "react-native";
 import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
-import { PowpowFloat } from "./FloatCentral";
 
 const ModalView = React.memo((props: {
     children: any;
@@ -17,6 +16,7 @@ const ModalView = React.memo((props: {
             if (onDidHide) onDidHide();
         }
     }, [])
+
     return (
         <Animated.View
             entering={animation == "none" ? undefined : FadeIn}
@@ -37,11 +37,11 @@ const FloatModal = React.memo((props: {
 }) => {
 
     const { children, zIndex = 10000, visible, onDidShow, onDidHide, animation } = props;
-    const key = useRef(PowpowFloat.uuid()).current;
+    const key = useRef(TornadorFloat.uuid()).current;
 
     useEffect(() => {
         if (visible) {
-            let float: PowpowFloat.Float = {
+            let float: TornadorFloat.Float = {
                 key: key,
                 component: (props) => (
                     <ModalView

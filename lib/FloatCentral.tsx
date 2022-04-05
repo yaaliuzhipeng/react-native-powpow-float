@@ -1,32 +1,24 @@
 import React, { MutableRefObject, useEffect, useRef, useState } from 'react';
+import FloatToast from './components/FloatToast'
 
-export namespace PowpowFloat {
-
-    enum Status {
+namespace TornadorFloat {
+    export enum Status {
         created = 1,
-        destroyed
+        destroyed,
     }
-
     export type Float = {
         key: string;
-        component?: any;//(props: any) => JSX.Element | React.NamedExoticComponent<object>;
+        component?: any; //(props: any) => JSX.Element | React.NamedExoticComponent<object>;
         name?: string; // equals to key when nil
         payload?: any; // data injected to component
         dependOn?: string; // use float's key
         dependRequired?: boolean; //set to true if depended by other float
         queue?: string; // queue group name
-    }
-
+    };
     export function uuid(): string {
         return Date.now().toString(32) + Math.round(Math.random() * 1000).toString(32)
     }
-
-    /**
-     * dependRequired为TRUE、需要记录当前float的加载、创建、销毁状态;
-     * dependOn 存在依赖、需要进入等待创建区;由floats观察者负责监听和调度待创建区中float;
-     */
     export class FloatManager {
-
         public floats: Array<Float> = [];
         public depends: any = {};
         public status: any = {};
@@ -108,10 +100,10 @@ export namespace PowpowFloat {
 
 const FloatCentral = (props) => {
 
-    const manager = useRef(new PowpowFloat.FloatManager()).current;
+    const manager = useRef(new TornadorFloat.FloatManager()).current;
     const [floats, setFloats] = useState([])
 
-    function add(float: PowpowFloat.Float) {
+    function add(float: TornadorFloat.Float) {
         let [shouldUpdate, fts] = manager.addFloat(float);
         if (shouldUpdate) {
             setFloats([...fts])
@@ -123,7 +115,7 @@ const FloatCentral = (props) => {
             setFloats([...fts])
         }
     }
-    function __makeFloat(float: PowpowFloat.Float, rm?: boolean) {
+    function __makeFloat(float: TornadorFloat.Float, rm?: boolean) {
         if (rm) {
             remove(float.key);
         } else {
@@ -132,7 +124,7 @@ const FloatCentral = (props) => {
     }
     function __makeToast(config: { text: string; position?: 'top' | 'center' | 'bottom'; duration?: 'short' | 'long' }) {
         global.makeFloat({
-            key: PowpowFloat.uuid(),
+            key: TornadorFloat.uuid(),
             component: FloatToast,
             payload: {
                 data: {
@@ -151,7 +143,7 @@ const FloatCentral = (props) => {
 
     return (
         <>
-            {floats.map((v: PowpowFloat.Float, i) => {
+            {floats.map((v: TornadorFloat.Float, i) => {
                 let { component: Component, key, payload = {} } = v;
                 return (
                     <Component
