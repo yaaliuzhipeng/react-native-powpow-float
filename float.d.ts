@@ -35,8 +35,8 @@ declare namespace Tornador {
   export namespace Float {}
 }
 
-declare function __makeFloat(float: TornadorFloat.Float, rm?: boolean);
-declare function __makeToast(config: {
+declare function makeFloat(float: TornadorFloat.Float, rm?: boolean);
+declare function makeToast(config: {
   text: string;
   position?: 'top' | 'center' | 'bottom';
   duration?: 'short' | 'long';
