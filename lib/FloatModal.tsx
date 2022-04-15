@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { StyleSheet } from "react-native";
 import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
+import { TornadorFloat } from './FloatCentral'
 
 const ModalView = React.memo((props: {
     children: any;
@@ -40,6 +41,7 @@ const FloatModal = React.memo((props: {
     const key = useRef(TornadorFloat.uuid()).current;
 
     useEffect(() => {
+        if(!global.makeFloat) return;
         if (visible) {
             let float: TornadorFloat.Float = {
                 key: key,

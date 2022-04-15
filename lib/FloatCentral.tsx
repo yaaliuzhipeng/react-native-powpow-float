@@ -1,7 +1,7 @@
 import React, { MutableRefObject, useEffect, useRef, useState } from 'react';
 import FloatToast from './components/FloatToast'
 
-namespace TornadorFloat {
+export namespace TornadorFloat {
     export enum Status {
         created = 1,
         destroyed,
