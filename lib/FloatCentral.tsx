@@ -20,16 +20,16 @@ export namespace TornadorFloat {
     }
     export class FloatManager {
         public floats: Array<Float> = [];
+        // 存储一系列key对应float的被依赖组件;
+        // 例如 depends['key1']存储的 float都是需要等 key1 浮层隐藏后才显示的浮层
         public depends: any = {};
+        // 存储会被依赖的浮层的状态
         public status: any = {};
-        /**
-         *  {
-         *      'toast': { queueing: false, floats: [] }
-         *  }
-         */
+        // 队列浮层、需要依次显示的同类浮层，例如 Toast提示、应用内顶部通知条
+        // 例如: { 'toast': { queueing: false, floats: [] } , 'notification': {queueing: false, floats: []} }
         public queues: any = {};
 
-        getFloatWithKey(key: string) {
+        getFloatWithKey(key: string): [number, any] {
             let i = this.floats.findIndex((v, i, _) => v.key === key)
             return [i, this.floats[i]];
         }
@@ -63,6 +63,13 @@ export namespace TornadorFloat {
         }
         addFloat(float: Float): [boolean, Array<Float>] {
             if (float.key && float.component) {
+                //先判断是否存在相同key
+                let [index, found] = this.getFloatWithKey(float.key)
+                if (index != -1) {
+                    this.floats[index] = float;
+                    return [true, this.floats];
+                }
+
                 if (float.dependOn) {
                     if (this.status[float.dependOn] == Status.destroyed) {
                         this.floats.push(float)
