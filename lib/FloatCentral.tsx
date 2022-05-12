@@ -105,10 +105,11 @@ export namespace TornadorFloat {
     }
 }
 
-const FloatCentral = (props) => {
+const FloatCentral = React.memo((props) => {
 
     const manager = useRef(new TornadorFloat.FloatManager()).current;
     const [floats, setFloats] = useState([])
+
 
     function add(float: TornadorFloat.Float) {
         let [shouldUpdate, fts] = manager.addFloat(float);
@@ -151,7 +152,7 @@ const FloatCentral = (props) => {
     return (
         <>
             {floats.map((v: TornadorFloat.Float, i) => {
-                let { component: Component, key, payload = {} } = v;
+                const { component: Component, key, payload = {} } = v;
                 return (
                     <Component
                         key={key}
@@ -162,5 +163,5 @@ const FloatCentral = (props) => {
             })}
         </>
     )
-}
+})
 export default FloatCentral;

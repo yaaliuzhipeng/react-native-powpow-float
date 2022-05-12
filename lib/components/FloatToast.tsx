@@ -1,7 +1,9 @@
 import React, { useEffect, useMemo } from "react";
-import { Text, Pressable, useWindowDimensions, ViewStyle, TextStyle } from 'react-native';
+import { Text, Pressable, View, Dimensions, ViewStyle, TextStyle } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
-
+const { width: iww, height: iwh } = Dimensions.get('window')
+const WindowWidth = Math.min(iww, iwh);
+const WindowHeight = Math.max(iww, iwh);
 export interface FloatToastData {
     text: string;
     duration?: "short" | "long";
@@ -14,15 +16,14 @@ const FloatToast = React.memo((props: {
     labelStyle?: TextStyle;
 }) => {
     const { data, style, removeSelf, labelStyle } = props;
-    const dimens = useWindowDimensions();
     const areaPosition = useMemo(() => ({
-        top: Math.floor(dimens.height * 0.33 * 0.5),
-        center: Math.floor(dimens.height * 0.5) - 20,
-        bottom: Math.floor(dimens.height * (1 - 0.33 * 0.5))
-    }), [dimens]);
-    const maxWidth = useMemo(() => Math.min(dimens.width, dimens.height) * 0.5, [dimens])
+        top: Math.floor(WindowHeight * 0.33 * 0.5),
+        center: Math.floor(WindowHeight * 0.5) - 20,
+        bottom: Math.floor(WindowHeight * (1 - 0.33 * 0.5))
+    }), []);
+    const maxWidth = useMemo(() => Math.min(WindowWidth, WindowHeight) * 0.5, [])
 
-    const containerStyle: ViewStyle = {
+    const containerStyle: ViewStyle = useMemo(() => ({
         paddingHorizontal: 18,
         paddingVertical: 8,
         borderRadius: 8,
@@ -30,19 +31,26 @@ const FloatToast = React.memo((props: {
         position: "absolute",
         zIndex: 99999,
         top: areaPosition[data?.position ?? "center"]
-    };
+    }), [data]);
 
     useEffect(() => {
-        setTimeout(() => {
+        const tt = setTimeout(() => {
             removeSelf()
         }, (data.duration ?? "short") == "short" ? 2000 : 3500);
+        return () => {
+            clearTimeout(tt);
+        }
     }, [])
 
     return (
         <Animated.View
             entering={FadeIn}
             exiting={FadeOut}
-            style={[containerStyle, { maxWidth: maxWidth, backgroundColor: '#000' }, style]}>
+            style={[
+                containerStyle, 
+                { maxWidth: maxWidth, backgroundColor: '#000' },
+                style
+            ]}>
             <Text style={[{ fontSize: font(15.6), color: '#FFF' }, labelStyle]}>{data?.text ?? ''}</Text>
         </Animated.View>
     );
