@@ -30,6 +30,7 @@ const ModalView = React.memo((props: {
 
 const FloatModal = React.memo((props: {
     visible: boolean;
+    uuid: string;
     children?: any;
     zIndex?: number;
     animation?: "opacity" | "none";
@@ -37,11 +38,10 @@ const FloatModal = React.memo((props: {
     onDidHide?: () => void;
 }) => {
 
-    const { children, zIndex = 10000, visible, onDidShow, onDidHide, animation } = props;
-    const key = useRef(TornadorFloat.uuid()).current;
+    const { children, uuid: key, zIndex = 10000, visible, onDidShow, onDidHide, animation } = props;
 
     useEffect(() => {
-        if(!global.makeFloat) return;
+        if (!global.makeFloat) return;
         if (visible) {
             let float: TornadorFloat.Float = {
                 key: key,
@@ -52,6 +52,7 @@ const FloatModal = React.memo((props: {
                         onDidHide={onDidHide}
                         onDidShow={onDidShow}
                         animation={animation}
+                        {...props}
                     />
                 )
             }
