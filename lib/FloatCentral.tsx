@@ -131,7 +131,7 @@ const FloatCentral = React.memo((props) => {
         }
     }
     function __makeToast(config: { text: string; position?: 'top' | 'center' | 'bottom'; duration?: 'short' | 'long' }) {
-        if(!global.makeFloat) return;
+        if (!global.makeFloat) return;
         global.makeFloat({
             key: TornadorFloat.uuid(),
             component: FloatToast,
