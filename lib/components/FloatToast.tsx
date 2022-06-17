@@ -48,7 +48,7 @@ const FloatToast = React.memo((props: {
             exiting={FadeOut}
             style={[
                 containerStyle, 
-                { maxWidth: maxWidth, backgroundColor: '#000' },
+                { maxWidth: maxWidth, backgroundColor: '#000000CC' },
                 style
             ]}>
             <Text style={[{ fontSize: font(15.6), color: '#FFF' }, labelStyle]}>{data?.text ?? ''}</Text>
