@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from "react";
-import { Text, Pressable, View, Dimensions, ViewStyle, TextStyle } from 'react-native';
+import { Text, Pressable, View, Dimensions, ViewStyle, TextStyle, useWindowDimensions } from 'react-native';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 const { width: iww, height: iwh } = Dimensions.get('window')
 const WindowWidth = Math.min(iww, iwh);
@@ -16,10 +16,12 @@ const FloatToast = React.memo((props: {
     labelStyle?: TextStyle;
 }) => {
     const { data, style, removeSelf, labelStyle } = props;
+    const dms = useWindowDimensions();
+    const windowHeight = useMemo(() => dms.height, [dms])
     const areaPosition = useMemo(() => ({
-        top: Math.floor(WindowHeight * 0.33 * 0.5),
-        center: Math.floor(WindowHeight * 0.5) - 20,
-        bottom: Math.floor(WindowHeight * (1 - 0.33 * 0.5))
+        top: Math.floor(windowHeight * 0.33 * 0.5),
+        center: Math.floor(windowHeight * 0.5) - 20,
+        bottom: Math.floor(windowHeight * (1 - 0.33 * 0.5))
     }), []);
     const maxWidth = useMemo(() => Math.min(WindowWidth, WindowHeight) * 0.5, [])
 
@@ -47,7 +49,7 @@ const FloatToast = React.memo((props: {
             entering={FadeIn}
             exiting={FadeOut}
             style={[
-                containerStyle, 
+                containerStyle,
                 { maxWidth: maxWidth, backgroundColor: '#000000CC' },
                 style
             ]}>
