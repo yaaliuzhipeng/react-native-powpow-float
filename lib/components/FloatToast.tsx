@@ -23,7 +23,7 @@ const FloatToast = React.memo((props: {
         center: Math.floor(windowHeight * 0.5) - 20,
         bottom: Math.floor(windowHeight * (1 - 0.33 * 0.5))
     }), []);
-    const maxWidth = useMemo(() => Math.min(WindowWidth, WindowHeight) * 0.5, [])
+    const maxWidth = useMemo(() => Math.min(WindowWidth, WindowHeight) * 0.6, [])
 
     const containerStyle: ViewStyle = useMemo(() => ({
         paddingHorizontal: 18,
